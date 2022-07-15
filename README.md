@@ -38,7 +38,9 @@ module.exports = {
 runOnComplete: runs "onComplete" callback if it was added as option.
 configPath: By default, the loader will look for one of following files in the working directory:
 
+```
 .fantasticonrc | fantasticonrc | .fantasticonrc.json | fantasticonrc.json | .fantasticonrc.js | fantasticonrc.js
+```
 
 config: You can also omit the config file and pass the configuration directly.
 
@@ -104,3 +106,7 @@ The loader will then generate:
 #### Configuration options
 
 See [fantasticon#configuration-file](https://github.com/ramirezcgn/fantasticon#configuration-file)
+
+### License
+
+Copyright (c) 2021 Nicolas Ramirez - Released under the [MIT license](https://github.com/ramirezcgn/fantasticon-webpack-plugin/blob/master/LICENSE)
