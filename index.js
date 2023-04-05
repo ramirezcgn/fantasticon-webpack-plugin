@@ -14,6 +14,9 @@ const schema = {
     config: {
       type: 'object',
     },
+    onComplete: {
+      type: 'function',
+    },
   },
 };
 
@@ -28,14 +31,14 @@ class FantasticonPlugin {
     });
   }
 
-  apply(compiler) {
+  async apply(compiler) {
     const {
       runOnComplete = false,
       configPath = null,
       config = null,
     } = this.options;
 
-    const loadedConfig = loadConfig(configPath);
+    const loadedConfig = await loadConfig(configPath);
     if (!loadedConfig && !config) {
       console.log('> Error compiling icon font, invalid config!');
       return;

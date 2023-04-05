@@ -25,16 +25,30 @@ const checkPath = (filepath, type) => {
   }
 };
 
-const attemptLoading = (filepath) => {
+const attemptLoading = async (filepath) => {
+  const errStack = [];
   if (checkPath(filepath, 'file')) {
-    try {
-      return require(join(process.cwd(), filepath));
-    } catch (err) {}
+    const fullpath = join(process.cwd(), filepath);
 
     try {
-      return JSON.parse(readFileSync(join(process.cwd(), filepath), 'utf8'));
-    } catch (err) {}
+      return require(fullpath);
+    } catch (error) {
+      errStack.push(error);
+    }
 
+    try {
+      return import(fullpath);
+    } catch (error) {
+      errStack.push(error);
+    }
+
+    try {
+      return JSON.parse(readFileSync(fullpath, 'utf8'));
+    } catch (error) {
+      errStack.push(error);
+    }
+
+    console.error(errStack);
     throw new Error(`Failed parsing configuration at '${filepath}'`);
   }
 };
