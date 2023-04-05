@@ -15,7 +15,7 @@ const schema = {
       type: 'object',
     },
     onComplete: {
-      type: 'function',
+      instanceof: 'Function',
     },
   },
 };
