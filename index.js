@@ -1,6 +1,30 @@
 const { generateFonts } = require('@ramirezcgn/fantasticon');
+const { cosmiconfigSync } = require('cosmiconfig');
 const { validate } = require('schema-utils');
-const loadConfig = require('./config-loader');
+
+const importDefault = function (mod) {
+  return mod && mod.__esModule ? mod.default : mod;
+};
+
+const searchPlaces = function (moduleName) {
+  return [
+    'package.json',
+    `.${moduleName}rc`,
+    `.${moduleName}rc.json`,
+    `.${moduleName}rc.yaml`,
+    `.${moduleName}rc.yml`,
+    `.${moduleName}rc.js`,
+    `.${moduleName}rc.cjs`,
+    `${moduleName}rc`,
+    `${moduleName}rc.json`,
+    `${moduleName}rc.yaml`,
+    `${moduleName}rc.yml`,
+    `${moduleName}rc.js`,
+    `${moduleName}rc.cjs`,
+    `${moduleName}.config.js`,
+    `${moduleName}.config.cjs`,
+  ];
+};
 
 const schema = {
   type: 'object',
@@ -38,13 +62,23 @@ class FantasticonPlugin {
       config = null,
     } = this.options;
 
-    const loadedConfig = loadConfig(configPath);
+    let loadedConfig = null;
+    const explorerSync = cosmiconfigSync('fantasticon', {
+      searchPlaces: searchPlaces('fantasticon'),
+    });
+    if (configPath) {
+      loadedConfig = explorerSync.load(configPath);
+    } else {
+      loadedConfig = explorerSync.search();
+    }
+
     if (!loadedConfig && !config) {
       console.log('> Error compiling icon font, invalid config!');
       return;
     }
 
-    const { onComplete = null, ...rawOptions } = loadedConfig;
+    const fileConfig = importDefault(loadedConfig.config);
+    const { onComplete = null, ...rawOptions } = fileConfig;
     const fontConfig = Object.assign({}, config || {}, rawOptions);
 
     const hookFn = (callback) => {
