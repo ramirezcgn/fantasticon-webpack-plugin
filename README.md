@@ -28,6 +28,7 @@ module.exports = {
   plugins: [
     new FantasticonPlugin({
       runOnComplete: false, //optional
+      //onComplete: (fontConfig) => {}, //optional
       //configPath: 'myconfig.js', //optional
       //config: { ... } //optional
     })

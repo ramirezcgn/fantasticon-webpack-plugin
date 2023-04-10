@@ -60,6 +60,7 @@ class FantasticonPlugin {
       runOnComplete = false,
       configPath = null,
       config = null,
+      onComplete: wpOnComplete = null,
     } = this.options;
 
     let loadedConfig = null;
@@ -85,8 +86,13 @@ class FantasticonPlugin {
       console.log('> Compiling icon font!');
       return generateFonts(fontConfig)
         .then(() => {
-          if (runOnComplete && onComplete) {
-            onComplete(fontConfig);
+          if (runOnComplete) {
+            if (onComplete) {
+              onComplete(fontConfig);
+            }
+            if (wpOnComplete) {
+              wpOnComplete(fontConfig);
+            }
           }
           console.log('> Icon font compiled!');
           callback();
