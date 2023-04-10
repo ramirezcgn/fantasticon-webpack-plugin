@@ -1,6 +1,6 @@
 {
   "name": "fantasticon-webpack-plugin",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A WebPack plugin to automatically generate font files and CSS to make your own icon font",
   "repository": "ramirezcgn/fantasticon-webpack-plugin",
   "main": "index.js",
@@ -22,7 +22,6 @@
   "license": "MIT",
   "dependencies": {
     "@ramirezcgn/fantasticon": "^1.2.5",
-    "node-fetch": "^2.6.9",
     "schema-utils": "^4.0.0"
   },
   "devDependencies": {

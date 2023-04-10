@@ -31,14 +31,14 @@ class FantasticonPlugin {
     });
   }
 
-  async apply(compiler) {
+  apply(compiler) {
     const {
       runOnComplete = false,
       configPath = null,
       config = null,
     } = this.options;
 
-    const loadedConfig = await loadConfig(configPath);
+    const loadedConfig = loadConfig(configPath);
     if (!loadedConfig && !config) {
       console.log('> Error compiling icon font, invalid config!');
       return;
