@@ -1,4 +1,4 @@
-const { generateFonts } = require('@ramirezcgn/fantasticon');
+const { generateFonts } = require('fantasticon');
 const { cosmiconfigSync } = require('cosmiconfig');
 const { validate } = require('schema-utils');
 
